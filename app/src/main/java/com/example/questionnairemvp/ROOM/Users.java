@@ -12,4 +12,20 @@ public class Users {
     private long id;
     @ColumnInfo (name = "Users_user")
     private String name;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
