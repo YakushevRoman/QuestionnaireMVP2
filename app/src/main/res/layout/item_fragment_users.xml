@@ -7,32 +7,12 @@
     <Button
         android:id="@+id/item_fragment_users_unhappy"
         android:textSize="@dimen/dimen_text"
-        android:text="@string/unhappy"
-        android:layout_margin="@dimen/dimen_margin"
-        app:layout_constraintEnd_toStartOf="@id/item_fragment_users_usual"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/item_fragment_users_usual"
-        android:text="@string/usual"
-        android:textSize="@dimen/dimen_text"
-        android:layout_margin="@dimen/dimen_margin"
-        app:layout_constraintEnd_toStartOf="@id/item_fragment_users_happy"
-        app:layout_constraintStart_toEndOf="@id/item_fragment_users_unhappy"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/item_fragment_users_happy"
-        android:text="@string/happy"
-        android:textSize="@dimen/dimen_text"
+        android:text="@string/initial_text"
         android:layout_margin="@dimen/dimen_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_fragment_users_usual"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

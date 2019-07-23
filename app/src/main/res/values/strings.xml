@@ -16,4 +16,5 @@
     <string name="unhappy">Unhappy</string>
     <string name="usual">usual</string>
     <string name="happy">happy</string>
+    <string name="initial_text">Initial text</string>
 </resources>

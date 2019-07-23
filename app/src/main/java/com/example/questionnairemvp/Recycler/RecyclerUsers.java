@@ -26,7 +26,7 @@ public class RecyclerUsers extends RecyclerView.Adapter<RecyclerUsers.UsersHolde
     public UsersHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_fragment_users, viewGroup, false);
+        View view = inflater.inflate(R.layout.item_recycler_view, viewGroup, false);
         return new UsersHolder(view);
     }
 
