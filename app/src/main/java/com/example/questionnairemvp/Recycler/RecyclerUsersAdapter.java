@@ -13,11 +13,11 @@ import com.example.questionnairemvp.ROOM.Users;
 
 import java.util.List;
 
-public class RecyclerUsers extends RecyclerView.Adapter<RecyclerUsers.UsersHolder> {
+public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdapter.UsersHolder> {
 
     private List <Users> usersList;
 
-    public RecyclerUsers(List<Users> usersList) {
+    public RecyclerUsersAdapter(List<Users> usersList) {
         this.usersList = usersList;
     }
 
