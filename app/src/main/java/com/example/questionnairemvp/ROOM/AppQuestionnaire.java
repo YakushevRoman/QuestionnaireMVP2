@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 
 public class AppQuestionnaire extends Application {
 
-    private AppQuestionnaire instance;
+    private static AppQuestionnaire instance;
     private DataBaseQuestionnaire dataBaseQuestionnaire;
 
     @Override
@@ -18,7 +18,7 @@ public class AppQuestionnaire extends Application {
                 .build();
     }
 
-    public AppQuestionnaire getInstance (){
+    public static AppQuestionnaire getInstance (){
         return instance;
     }
 
