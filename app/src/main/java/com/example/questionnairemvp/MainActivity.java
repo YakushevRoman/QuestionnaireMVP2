@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity
                 .getDataBaseQuestionnaire()
                 .getDaoUsers()
                 .getAllUsers();
+        for (Users users:
+             users2) {
+            Log.d(Constants.TAG, "MainActivity onCreate: users " + users.getName());
+        }
         Log.d(Constants.TAG, "MainActivity onCreate: users " + users2.size());
         /*
 
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         if (fragment == null){
         fragmentTransaction.add(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
-        }else {
+        } else {
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }

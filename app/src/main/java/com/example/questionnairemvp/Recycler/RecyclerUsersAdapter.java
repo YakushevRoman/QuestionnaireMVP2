@@ -48,7 +48,7 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
 
         public UsersHolder(@NonNull View itemView) {
             super(itemView);
-            user = itemView.findViewById(R.id.item_fragment_users_unhappy);
+            user = itemView.findViewById(R.id.item_fragment__user);
             //usual = itemView.findViewById(R.id.item_fragment_users_usual);
             //happy = itemView.findViewById(R.id.item_fragment_users_happy);
         }
