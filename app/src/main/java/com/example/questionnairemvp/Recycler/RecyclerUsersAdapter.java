@@ -26,7 +26,7 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
     public UsersHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_questionnare, viewGroup, false);
+        View view = inflater.inflate(R.layout.item_fragment_users, viewGroup, false);
         return new UsersHolder(view);
     }
 
@@ -42,19 +42,19 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
     }
 
     class UsersHolder extends RecyclerView.ViewHolder{
-        private Button unhappy;
-        private Button usual;
-        private Button happy;
+        private Button user;
+        //private Button usual;
+        //private Button happy;
 
         public UsersHolder(@NonNull View itemView) {
             super(itemView);
-            unhappy = itemView.findViewById(R.id.item_fragment_users_unhappy);
-            usual = itemView.findViewById(R.id.item_fragment_users_usual);
-            happy = itemView.findViewById(R.id.item_fragment_users_happy);
+            user = itemView.findViewById(R.id.item_fragment_users_unhappy);
+            //usual = itemView.findViewById(R.id.item_fragment_users_usual);
+            //happy = itemView.findViewById(R.id.item_fragment_users_happy);
         }
 
         public void  bindUsersHolder (int id){
-
+            user.setText(user.getText().toString());
         }
     }
 

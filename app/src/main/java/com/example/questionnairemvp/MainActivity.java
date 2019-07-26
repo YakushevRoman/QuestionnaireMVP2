@@ -99,13 +99,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
         if (id == R.id.nav_home) {
             QuestionnaireFragment questionnaireFragment =  new QuestionnaireFragment();
-            setFragment(fragmentManager, questionnaireFragment);
+            setFragment(questionnaireFragment);
         } else if (id == R.id.nav_gallery) {
             UsersFragment usersFragment =  new UsersFragment();
-            setFragment(fragmentManager, usersFragment);
+            setFragment(usersFragment);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_tools) {
@@ -121,7 +120,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setFragment (FragmentManager fragmentManager, Fragment fragment){
+    private void setFragment (Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (fragment == null){
         fragmentTransaction.add(R.id.fragment_container, fragment);
