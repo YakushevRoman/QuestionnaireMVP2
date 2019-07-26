@@ -28,4 +28,11 @@ public class Users {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static Users setFirstData (){
+        Users users = new Users();
+        users.name = "Roman";
+        return users;
+    }
 }
+

@@ -3,6 +3,10 @@ package com.example.questionnairemvp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +18,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.example.questionnairemvp.Constants.Constants;
+import com.example.questionnairemvp.Fragments.QuestionnaireFragment;
+import com.example.questionnairemvp.Fragments.UsersFragment;
+import com.example.questionnairemvp.ROOM.AppQuestionnaire;
+import com.example.questionnairemvp.ROOM.Users;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -23,6 +35,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        List <Users> users2 = AppQuestionnaire
+                .getInstance()
+                .getDataBaseQuestionnaire()
+                .getDaoUsers()
+                .getAllUsers();
+        Log.d(Constants.TAG, "MainActivity onCreate: users " + users2.size());
+        /*
+
+         */
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,11 +99,13 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            QuestionnaireFragment questionnaireFragment =  new QuestionnaireFragment();
+            setFragment(fragmentManager, questionnaireFragment);
         } else if (id == R.id.nav_gallery) {
-
+            UsersFragment usersFragment =  new UsersFragment();
+            setFragment(fragmentManager, usersFragment);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_tools) {
@@ -95,5 +119,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setFragment (FragmentManager fragmentManager, Fragment fragment){
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (fragment == null){
+        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+        }else {
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+        }
     }
 }
