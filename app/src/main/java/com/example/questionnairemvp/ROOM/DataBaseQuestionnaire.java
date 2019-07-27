@@ -5,6 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 @Database(entities = {Users.class,UserQuestionnaire.class},version = 1,exportSchema = false)
 public abstract class DataBaseQuestionnaire extends RoomDatabase {
+
     public abstract DaoUsers getDaoUsers();
     public abstract DaoUserQuestionnaire getDaoUserQuestionnaire();
 }

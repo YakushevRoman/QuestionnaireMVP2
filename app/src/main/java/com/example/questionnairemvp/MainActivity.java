@@ -22,6 +22,7 @@ import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.Fragments.QuestionnaireFragment;
 import com.example.questionnairemvp.Fragments.UsersFragment;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
+import com.example.questionnairemvp.ROOM.UserQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
 
 import java.util.List;
@@ -42,11 +43,20 @@ public class MainActivity extends AppCompatActivity
                 .getDaoUsers()
                 .getAllUsers();
         for (Users users:
-             users2) {
-            Log.d(Constants.TAG, "MainActivity onCreate: users " + users.getName());
+                users2) {
+            Log.d(Constants.ConstantsGlobal.TAG, "MainActivity onCreate: users " + users.getName());
         }
-        Log.d(Constants.TAG, "MainActivity onCreate: users " + users2.size());
-        /*
+
+
+        List <UserQuestionnaire> userQuestionnaires = AppQuestionnaire
+                .getInstance()
+                .getDataBaseQuestionnaire()
+                .getDaoUserQuestionnaire()
+                .getUserQuestionnaires();
+        for (UserQuestionnaire userQuestionnaire:
+             userQuestionnaires) {
+            Log.d(Constants.ConstantsGlobal.TAG, "MainActivity onCreate: users " + userQuestionnaire.getTime());
+        }        /*
 
          */
         FloatingActionButton fab = findViewById(R.id.fab);

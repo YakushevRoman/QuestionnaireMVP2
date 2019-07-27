@@ -17,4 +17,5 @@
     <string name="usual">usual</string>
     <string name="happy">happy</string>
     <string name="initial_text">Initial text</string>
+    <string name="application_create">AppQuestionnaire onCreate()</string>
 </resources>

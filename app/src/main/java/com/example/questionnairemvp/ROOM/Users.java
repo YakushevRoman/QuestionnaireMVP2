@@ -10,6 +10,7 @@ public class Users {
     @PrimaryKey (autoGenerate = true)
     @ColumnInfo (name = "Users_id")
     private long id;
+
     @ColumnInfo (name = "Users_user")
     private String name;
 
@@ -29,7 +30,11 @@ public class Users {
         this.name = name;
     }
 
-    public static Users setFirstData (){
+    /**
+     * first initialisation
+     * @return
+     */
+    public static Users setFirstDataUsers (){
         Users users = new Users();
         users.name = "Roman";
         return users;

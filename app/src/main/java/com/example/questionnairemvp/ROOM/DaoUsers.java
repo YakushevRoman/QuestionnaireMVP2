@@ -1,6 +1,7 @@
 package com.example.questionnairemvp.ROOM;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -14,6 +15,13 @@ public interface DaoUsers {
 
     @Insert
     public void insertUsers (Users users);
+
+    /*@Delete
+    public void deleteUsers ();
+
+    @Delete
+    public int deleteCountUsers ();*/
+
 
 
 }
