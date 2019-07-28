@@ -1,5 +1,6 @@
 package com.example.questionnairemvp.MVP;
 
-public class ModelQuestionnaireFragment {
+public class ModelUsersFragment {
+
 
 }

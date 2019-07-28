@@ -1,5 +1,6 @@
 package com.example.questionnairemvp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity
             UsersFragment usersFragment =  new UsersFragment();
             setFragmentMainActivity(usersFragment);
         } else if (id == R.id.nav_slideshow) {
-
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
         } else if (id == R.id.nav_tools) {
 
         } else if (id == R.id.nav_share) {
@@ -137,7 +138,8 @@ public class MainActivity extends AppCompatActivity
     private void setFragmentMainActivity (Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (fragment == null){
+        Fragment fragmentContainer = fragmentManager.findFragmentById(R.id.fragment_container);
+        if (fragmentContainer == null){
         fragmentTransaction
                 .add(R.id.fragment_container, fragment)
                 .addToBackStack(null)

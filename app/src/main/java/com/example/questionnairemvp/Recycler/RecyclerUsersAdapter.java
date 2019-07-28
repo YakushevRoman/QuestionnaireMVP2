@@ -79,6 +79,7 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
                 fragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_container, fragmentQuestionnaireFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         }

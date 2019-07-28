@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class QuestionnaireFragment extends Fragment {
 
@@ -38,24 +39,30 @@ public class QuestionnaireFragment extends Fragment {
         Button usualButtonQuestionnaireFragment = view.findViewById(R.id.item_fragment_users_usual);
         Button happyButtonQuestionnaireFragment = view.findViewById(R.id.item_fragment_users_happy);
 
-        unhappyButtonQuestionnaireFragment.setOnClickListener(new View.OnClickListener() {
+        unhappyButtonQuestionnaireFragment
+                .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 insertUserQuestionnaire(Constants.ConstantsQuestionnaireFragment.unhappyQuestionnaireFragment, getDataTime());
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
             }
         });
 
-        usualButtonQuestionnaireFragment.setOnClickListener(new View.OnClickListener() {
+        usualButtonQuestionnaireFragment
+                .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 insertUserQuestionnaire(Constants.ConstantsQuestionnaireFragment.usualQuestionnaireFragment, getDataTime());
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
             }
         });
 
-        happyButtonQuestionnaireFragment.setOnClickListener(new View.OnClickListener() {
+        happyButtonQuestionnaireFragment
+                .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 insertUserQuestionnaire(Constants.ConstantsQuestionnaireFragment.happyQuestionnaireFragment, getDataTime());
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
             }
         });
         return view;
