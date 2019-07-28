@@ -13,11 +13,22 @@ public class UserQuestionnaire {
     @ColumnInfo (name = "UserQuestionnaire_id")
     private long id;
 
+    @ColumnInfo (name = "UserQuestionnaire_id_name")
+    private long id_name;
+
     @ColumnInfo (name = "UserQuestionnaire_answer")
     private int ansver;
 
     @ColumnInfo (name = "UserQuestionnaire_time")
     private String time;
+
+    public long getId_name() {
+        return id_name;
+    }
+
+    public void setId_name(long id_name) {
+        this.id_name = id_name;
+    }
 
     public long getId() {
         return id;
@@ -45,8 +56,9 @@ public class UserQuestionnaire {
 
     public static UserQuestionnaire setFirstData (){
         UserQuestionnaire userQuestionnaire = new UserQuestionnaire();
-        userQuestionnaire.ansver = Constants.ConstantsQuestionnaireFragment.unhappyQuestionnaireFragment;
-        userQuestionnaire.time = "11:11:11";
+        userQuestionnaire.id_name = Constants.ConstantsUserQuestionnaire.idNameUserQuestionnaire;
+        userQuestionnaire.ansver = Constants.ConstantsUserQuestionnaire.answerUserQuestionnaire;
+        userQuestionnaire.time = Constants.ConstantsUserQuestionnaire.timeUserQuestionnaire;
         return userQuestionnaire;
     }
 }

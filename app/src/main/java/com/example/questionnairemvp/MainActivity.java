@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
                 .getAllUsers();
         for (Users users:
                 users2) {
-            Log.d(Constants.ConstantsGlobal.TAG, "MainActivity onCreate: users " + users.getName());
+            Log.d(Constants.ConstantsGlobal.TAG, String.format(" id : %s, name : %s",users.getId(),users.getName()));
         }
 
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
                 .getUserQuestionnaires();
         for (UserQuestionnaire userQuestionnaire:
              userQuestionnaires) {
-            Log.d(Constants.ConstantsGlobal.TAG, "MainActivity onCreate: users " + userQuestionnaire.getTime());
+            Log.d(Constants.ConstantsGlobal.TAG, String.format(" id : %s, id_name : %s, answer : %s, time : %s",userQuestionnaire.getId(),userQuestionnaire.getId_name(),userQuestionnaire.getAnsver(),userQuestionnaire.getTime()));
         }        /*
 
          */
@@ -138,11 +138,15 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (fragment == null){
-        fragmentTransaction.add(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction
+                .add(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
         } else {
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
+            fragmentTransaction
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 }

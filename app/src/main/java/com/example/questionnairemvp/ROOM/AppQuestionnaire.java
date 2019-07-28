@@ -40,6 +40,17 @@ public class AppQuestionnaire extends Application {
                             @Override
                             public void run() {
                                 getInstance()
+                                        .getDataBaseQuestionnaire()
+                                        .getDaoUsers()
+                                        .insertUsers(Users.setFirstDataUsers2());
+                                Log.d(Constants.ConstantsGlobal.TAG, "onCreate: DataBase is created Users");
+                            }
+                        });
+
+                        Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                getInstance()
                                         .dataBaseQuestionnaire
                                         .getDaoUserQuestionnaire()
                                         .insertUserQuestionnaire(UserQuestionnaire.setFirstData());

@@ -1,5 +1,4 @@
 package com.example.questionnairemvp.Fragments;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
 import com.example.questionnairemvp.ROOM.DaoUserQuestionnaire;
 import com.example.questionnairemvp.ROOM.UserQuestionnaire;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,11 +20,12 @@ import java.util.Locale;
 public class QuestionnaireFragment extends Fragment {
 
     private DaoUserQuestionnaire daoUserQuestionnaire;
+    private Bundle bundleQuestionnaireFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        daoUserQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire().getDaoUserQuestionnaire();
+        startInitQuestionnaireFragment();
     }
 
     @Nullable
@@ -63,6 +61,14 @@ public class QuestionnaireFragment extends Fragment {
         return view;
     }
 
+    private void startInitQuestionnaireFragment () {
+        bundleQuestionnaireFragment = getArguments();
+        daoUserQuestionnaire = AppQuestionnaire
+                .getInstance()
+                .getDataBaseQuestionnaire()
+                .getDaoUserQuestionnaire();
+    }
+
     private String  getDataTime (){
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.getDefault());
@@ -71,8 +77,14 @@ public class QuestionnaireFragment extends Fragment {
 
     private void insertUserQuestionnaire(int answer, String time){
         UserQuestionnaire userQuestionnaire = new UserQuestionnaire();
+        userQuestionnaire.setId_name(bundleQuestionnaireFragment.getLong(Constants.ConstantsRecyclerUsersAdapter.ID_FOR_IDNAME));// hard code
         userQuestionnaire.setAnsver(answer);
         userQuestionnaire.setTime(time);
         daoUserQuestionnaire.insertUserQuestionnaire(userQuestionnaire);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

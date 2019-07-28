@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.example.questionnairemvp.Constants.Constants;
+
 @Entity
 public class Users {
 
@@ -30,13 +32,15 @@ public class Users {
         this.name = name;
     }
 
-    /**
-     * first initialisation
-     * @return
-     */
-    public static Users setFirstDataUsers (){
+    static Users setFirstDataUsers(){
         Users users = new Users();
-        users.name = "Roman";
+        users.name = Constants.ConstantsUser.NAME_USERS;
+        return users;
+    }
+
+    static Users setFirstDataUsers2(){
+        Users users = new Users();
+        users.name = Constants.ConstantsUser.NAME_USERS2;
         return users;
     }
 }

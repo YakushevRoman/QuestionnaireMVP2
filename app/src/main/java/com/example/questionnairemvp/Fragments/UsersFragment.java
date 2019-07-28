@@ -21,12 +21,7 @@ public class UsersFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        List<Users> usersList = AppQuestionnaire
-                .getInstance()
-                .getDataBaseQuestionnaire()
-                .getDaoUsers()
-                .getAllUsers();
-        recyclerUsersAdapter = new RecyclerUsersAdapter(usersList, getContext());
+        startInitUsersFragment();
     }
 
     @Nullable
@@ -39,5 +34,21 @@ public class UsersFragment extends Fragment {
         recyclerViewUsersFragment.setAdapter(recyclerUsersAdapter);
         recyclerViewUsersFragment.setHasFixedSize(true);
         return view;
+    }
+
+
+
+    private void startInitUsersFragment (){
+        List<Users> usersList = AppQuestionnaire
+                .getInstance()
+                .getDataBaseQuestionnaire()
+                .getDaoUsers()
+                .getAllUsers();
+        recyclerUsersAdapter = new RecyclerUsersAdapter(usersList, getContext(), this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
