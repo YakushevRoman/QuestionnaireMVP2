@@ -8,7 +8,7 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 @Dao
-public interface DaoUsers {
+public interface DaoUsers extends  DaoBase <Users>{
 
     @Query("Select * from Users")
     public List <Users> getAllUsers ();

@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_home) {
             QuestionnaireFragment questionnaireFragment =  new QuestionnaireFragment();
-            setFragment(questionnaireFragment);
+            setFragmentMainActivity(questionnaireFragment);
         } else if (id == R.id.nav_gallery) {
             UsersFragment usersFragment =  new UsersFragment();
-            setFragment(usersFragment);
+            setFragmentMainActivity(usersFragment);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_tools) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setFragment (Fragment fragment){
+    private void setFragmentMainActivity (Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (fragment == null){

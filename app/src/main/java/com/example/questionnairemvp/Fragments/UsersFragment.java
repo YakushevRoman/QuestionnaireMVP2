@@ -8,12 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
 import com.example.questionnairemvp.Recycler.RecyclerUsersAdapter;
-
 import java.util.List;
 
 public class UsersFragment extends Fragment {
@@ -28,7 +26,7 @@ public class UsersFragment extends Fragment {
                 .getDataBaseQuestionnaire()
                 .getDaoUsers()
                 .getAllUsers();
-        recyclerUsersAdapter = new RecyclerUsersAdapter(usersList);
+        recyclerUsersAdapter = new RecyclerUsersAdapter(usersList, getContext());
     }
 
     @Nullable
@@ -39,6 +37,7 @@ public class UsersFragment extends Fragment {
         RecyclerView recyclerViewUsersFragment = view.findViewById(R.id.fragment_users_recycler_view);
         recyclerViewUsersFragment.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewUsersFragment.setAdapter(recyclerUsersAdapter);
+        recyclerViewUsersFragment.setHasFixedSize(true);
         return view;
     }
 }
