@@ -15,7 +15,7 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
     }
 
     /**/
-    public void setAddUser (Users user, IAddUser addUser){
+    public void addUser (Users user, IAddUser addUser){
         AddUser add = new AddUser(addUser);
         add.execute(user);
     }
@@ -23,10 +23,10 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
         LoadUsers loadUsers = new LoadUsers(iLoadUsers);
         loadUsers.execute();
     }
-    public void deleteAllUsers (IDeleteUsers iDeleteUsers){
+    /*public void deleteAllUsers (IDeleteUsers iDeleteUsers){
         DeleteUsers  deleteUsers = new DeleteUsers(iDeleteUsers);
         deleteUsers.execute();
-    }
+    }*/
     /**/
     interface IAddUser {
         public void onAddUser();
@@ -83,7 +83,7 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
             }
         }
     }
-    class DeleteUsers extends AsyncTask <Void, Void, Integer>{
+    /*class DeleteUsers extends AsyncTask <Void, Void, Integer>{
         private final IDeleteUsers iDeleteUsers;
         private int countDeleteUsers;
 
@@ -93,8 +93,8 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            countDeleteUsers = dataBaseQuestionnaire.getDaoUsers().deleteCountUsers();
-            return countDeleteUsers;
+            dataBaseQuestionnaire.getDaoUsers().deleteCountUsers();
+            return null;
         }
 
         @Override
@@ -104,5 +104,5 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
                 iDeleteUsers.onDeleteUsers(integer);
             }
         }
-    }
+    }*/
 }

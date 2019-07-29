@@ -8,19 +8,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.questionnairemvp.MVP.ModelUsersFragment;
+import com.example.questionnairemvp.MVP.PresenterUsersFragment;
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
+import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
 import com.example.questionnairemvp.Recycler.RecyclerUsersAdapter;
 import java.util.List;
 
 public class UsersFragment extends Fragment {
-
+    private PresenterUsersFragment presenterUsersFragment;
+    private ModelUsersFragment modelUsersFragment;
+    private DataBaseQuestionnaire dataBaseQuestionnaire;
     private RecyclerUsersAdapter recyclerUsersAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         startInitUsersFragment();
     }
 
@@ -39,11 +46,21 @@ public class UsersFragment extends Fragment {
 
 
     private void startInitUsersFragment (){
-        List<Users> usersList = AppQuestionnaire
+        dataBaseQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire();
+        modelUsersFragment = new ModelUsersFragment(dataBaseQuestionnaire);
+        presenterUsersFragment = new PresenterUsersFragment(modelUsersFragment);
+        presenterUsersFragment.attachView(this);
+        presenterUsersFragment.viewIsAlready();
+
+        /*List<Users> usersList = AppQuestionnaire
                 .getInstance()
                 .getDataBaseQuestionnaire()
                 .getDaoUsers()
                 .getAllUsers();
+        */
+    }
+
+    public void showList(List <Users> usersList){
         recyclerUsersAdapter = new RecyclerUsersAdapter(usersList, getContext(), this);
     }
 

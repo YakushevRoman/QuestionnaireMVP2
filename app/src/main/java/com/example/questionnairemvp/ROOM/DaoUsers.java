@@ -15,13 +15,4 @@ public interface DaoUsers extends  DaoBase <Users>{
 
     @Insert
     public void insertUsers (Users users);
-
-    /*@Delete
-    public void deleteUsers ();
-    */
-    @Delete
-    public int deleteCountUsers ();
-
-
-
 }
