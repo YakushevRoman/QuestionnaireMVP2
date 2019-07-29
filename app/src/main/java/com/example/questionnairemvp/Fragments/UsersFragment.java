@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.MVP.ModelUsersFragment;
 import com.example.questionnairemvp.MVP.PresenterUsersFragment;
 import com.example.questionnairemvp.R;
@@ -23,23 +25,30 @@ public class UsersFragment extends Fragment {
     private ModelUsersFragment modelUsersFragment;
     private DataBaseQuestionnaire dataBaseQuestionnaire;
     private RecyclerUsersAdapter recyclerUsersAdapter;
-
+    RecyclerView recyclerViewUsersFragment;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startInitUsersFragment();
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
-
+        startInitUsersFragment();
+        /*List<Users> usersList = AppQuestionnaire
+                .getInstance()
+                .getDataBaseQuestionnaire()
+                .getDaoUsers()
+                .getAllUsers();*/
+        recyclerUsersAdapter = new RecyclerUsersAdapter(this);
         RecyclerView recyclerViewUsersFragment = view.findViewById(R.id.fragment_users_recycler_view);
         recyclerViewUsersFragment.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewUsersFragment.setAdapter(recyclerUsersAdapter);
         recyclerViewUsersFragment.setHasFixedSize(true);
+
         return view;
     }
 
@@ -52,16 +61,12 @@ public class UsersFragment extends Fragment {
         presenterUsersFragment.attachView(this);
         presenterUsersFragment.viewIsAlready();
 
-        /*List<Users> usersList = AppQuestionnaire
-                .getInstance()
-                .getDataBaseQuestionnaire()
-                .getDaoUsers()
-                .getAllUsers();
+        /*
         */
     }
 
     public void showList(List <Users> usersList){
-        recyclerUsersAdapter = new RecyclerUsersAdapter(usersList, getContext(), this);
+        recyclerUsersAdapter.setData(usersList);
     }
 
     @Override

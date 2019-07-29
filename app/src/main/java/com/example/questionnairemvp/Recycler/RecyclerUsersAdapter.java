@@ -16,25 +16,24 @@ import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.Fragments.QuestionnaireFragment;
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.Users;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdapter.UsersHolder> {
 
-    private List <Users> usersList;
-    private Context context;
+    private List <Users> usersList = new ArrayList<>();
     private Fragment fragment;
 
-    public RecyclerUsersAdapter(List<Users> usersList, Context context, Fragment fragment) {
-        this.usersList = usersList;
-        this.context = context;
+    public RecyclerUsersAdapter(Fragment fragment) {
         this.fragment = fragment;
     }
 
     @NonNull
     @Override
     public UsersHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.item_fragment_users, viewGroup, false);
         return new UsersHolder(view);
     }
@@ -49,6 +48,13 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
     public int getItemCount() {
         return usersList.size();
     }
+
+    public void setData (List <Users> data){
+        usersList.clear();
+        usersList.addAll(data);
+        notifyDataSetChanged();
+    }
+
 
     class UsersHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Button buttonUsersHolder;
@@ -67,7 +73,7 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, usersHolder.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), usersHolder.getName(), Toast.LENGTH_SHORT).show();
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.ConstantsRecyclerUsersAdapter.ID_FOR_IDNAME, usersHolder.getId());
 
