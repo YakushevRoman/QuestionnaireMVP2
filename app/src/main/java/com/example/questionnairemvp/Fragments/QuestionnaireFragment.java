@@ -69,11 +69,16 @@ public class QuestionnaireFragment extends Fragment {
     }
 
     private void startInitQuestionnaireFragment () {
-        bundleQuestionnaireFragment = getArguments();
+        getBundleQuestionnaireFragment();
         daoUserQuestionnaire = AppQuestionnaire
                 .getInstance()
                 .getDataBaseQuestionnaire()
                 .getDaoUserQuestionnaire();
+    }
+
+    private Bundle getBundleQuestionnaireFragment(){
+        bundleQuestionnaireFragment = getArguments();
+        return bundleQuestionnaireFragment;
     }
 
     private String  getDataTime (){

@@ -18,9 +18,9 @@ public interface DaoUsers extends  DaoBase <Users>{
 
     /*@Delete
     public void deleteUsers ();
-
+    */
     @Delete
-    public int deleteCountUsers ();*/
+    public int deleteCountUsers ();
 
 
 
