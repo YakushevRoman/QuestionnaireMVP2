@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.questionnairemvp.Constants.Constants;
+import com.example.questionnairemvp.ROOM.DaoUsers;
 import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
 
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ModelUsersFragment {
-private DataBaseQuestionnaire dataBaseQuestionnaire;
+private DaoUsers dataBaseQuestionnaire;
 
-    public ModelUsersFragment(DataBaseQuestionnaire dataBaseQuestionnaire) {
+    public ModelUsersFragment(DaoUsers dataBaseQuestionnaire) {
         this.dataBaseQuestionnaire = dataBaseQuestionnaire;
     }
 
@@ -52,7 +53,7 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
         @Override
         protected Void doInBackground(Users... users) {
             Users user = users[0];
-            dataBaseQuestionnaire.getDaoUsers().insertUsers(user);
+            dataBaseQuestionnaire.insertUsers(user);
             return null;
         }
 
@@ -74,7 +75,7 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
 
         @Override
         protected List<Users> doInBackground(Void... voids) {
-            List <Users> usersList = dataBaseQuestionnaire.getDaoUsers().getAllUsers();
+            List <Users> usersList = dataBaseQuestionnaire.getAllUsers();
             return usersList;
         }
 

@@ -6,9 +6,7 @@ import android.util.TimeUtils;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.Fragments.UsersFragment;
 import com.example.questionnairemvp.ROOM.Users;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class PresenterUsersFragment {
     private final ModelUsersFragment modelUsersFragment;
@@ -28,28 +26,25 @@ public class PresenterUsersFragment {
     //
     public void viewIsAlready (){
         Log.d(Constants.ConstantsGlobal.TAG, "viewIsAlready (): ");
-        try {
-            TimeUnit.SECONDS.sleep(2);
-            loadUsersPresenter();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        loadUsersPresenter();
     }
     //
     public void loadUsersPresenter (){
         Log.d(Constants.ConstantsGlobal.TAG, "loadUsersPresenter () ");
-        modelUsersFragment.loadUsers(new ModelUsersFragment.ILoadUsers() {
-            @Override
-            public void onLoadUsers(final List<Users> usersList) {
-                Log.d(Constants.ConstantsGlobal.TAG, "loadUsersPresenter (): size"+ usersList.size());
-            }
-        });
+            modelUsersFragment.loadUsers(new ModelUsersFragment.ILoadUsers() {
+                @Override
+                public void onLoadUsers(final List<Users> usersList) {
+                    Log.d(Constants.ConstantsGlobal.TAG, "loadUsersPresenter (): size"+ usersList.size());
+                    usersFragment.showList(usersList);
+                }
+            });
     }
     //
     public void addUsersPresenter(){
         // получение users
         Users users = new Users();
         users.setName("New users");
+        Log.d(Constants.ConstantsGlobal.TAG, "addUsersPresenter() ");
         modelUsersFragment.addUser(users, new ModelUsersFragment.IAddUser() {
             @Override
             public void onAddUser() {
