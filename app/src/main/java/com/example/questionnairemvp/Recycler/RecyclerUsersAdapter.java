@@ -1,22 +1,19 @@
 package com.example.questionnairemvp.Recycler;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.Fragments.QuestionnaireFragment;
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.Users;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +37,7 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
 
     @Override
     public void onBindViewHolder(@NonNull UsersHolder usersHolder, int i) {
-        Users users = usersList.get(i);
-        usersHolder.bindUsersHolder(users);
+        usersHolder.bindUsersHolder(usersList.get(i));
     }
 
     @Override
@@ -53,6 +49,7 @@ public class RecyclerUsersAdapter extends RecyclerView.Adapter<RecyclerUsersAdap
         usersList.clear();
         usersList.addAll(data);
         notifyDataSetChanged();
+        Log.d(Constants.ConstantsGlobal.TAG, "setData: "+ data.size());
     }
 
 

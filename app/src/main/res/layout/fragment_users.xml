@@ -16,4 +16,13 @@
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_users__Add_FloatingActionButton"
+        android:textSize="@dimen/dimen_text"
+        android:layout_margin="@dimen/dimen_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
 </android.support.constraint.ConstraintLayout>

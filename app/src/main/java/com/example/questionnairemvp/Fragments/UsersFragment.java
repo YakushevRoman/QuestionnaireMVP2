@@ -2,10 +2,8 @@ package com.example.questionnairemvp.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,48 +20,46 @@ import java.util.List;
 
 public class UsersFragment extends Fragment {
     private PresenterUsersFragment presenterUsersFragment;
-    private ModelUsersFragment modelUsersFragment;
-    private DataBaseQuestionnaire dataBaseQuestionnaire;
     private RecyclerUsersAdapter recyclerUsersAdapter;
-    RecyclerView recyclerViewUsersFragment;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        //startInitUsersFragment();
+        DataBaseQuestionnaire dataBaseQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire();
+        ModelUsersFragment modelUsersFragment = new ModelUsersFragment(dataBaseQuestionnaire);
+        presenterUsersFragment = new PresenterUsersFragment(modelUsersFragment);
+        presenterUsersFragment.attachView(this);
+        presenterUsersFragment.viewIsAlready();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
-        startInitUsersFragment();
-        /*List<Users> usersList = AppQuestionnaire
-                .getInstance()
-                .getDataBaseQuestionnaire()
-                .getDaoUsers()
-                .getAllUsers();*/
-        recyclerUsersAdapter = new RecyclerUsersAdapter(this);
+        /*recyclerUsersAdapter = new RecyclerUsersAdapter(this);
         RecyclerView recyclerViewUsersFragment = view.findViewById(R.id.fragment_users_recycler_view);
+
         recyclerViewUsersFragment.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewUsersFragment.setAdapter(recyclerUsersAdapter);
-        recyclerViewUsersFragment.setHasFixedSize(true);
+        recyclerViewUsersFragment.setAdapter(recyclerUsersAdapter);*/
+
+        FloatingActionButton addFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.fragment_users__Add_FloatingActionButton);
+        addFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenterUsersFragment.addUsersPresenter();
+            }
+        });
+
+
 
         return view;
     }
 
 
 
-    private void startInitUsersFragment (){
-        dataBaseQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire();
-        modelUsersFragment = new ModelUsersFragment(dataBaseQuestionnaire);
-        presenterUsersFragment = new PresenterUsersFragment(modelUsersFragment);
-        presenterUsersFragment.attachView(this);
-        presenterUsersFragment.viewIsAlready();
-
-        /*
-        */
-    }
+    /*private void startInitUsersFragment (){
+        *
+    }*/
 
     public void showList(List <Users> usersList){
         recyclerUsersAdapter.setData(usersList);
@@ -72,5 +68,6 @@ public class UsersFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        presenterUsersFragment.detachView();
     }
 }

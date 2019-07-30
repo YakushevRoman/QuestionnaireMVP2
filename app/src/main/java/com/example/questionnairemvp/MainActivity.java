@@ -38,36 +38,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        List <Users> users2 = AppQuestionnaire
-                .getInstance()
-                .getDataBaseQuestionnaire()
-                .getDaoUsers()
-                .getAllUsers();
-        for (Users users:
-                users2) {
-            Log.d(Constants.ConstantsGlobal.TAG, String.format(" id : %s, name : %s",users.getId(),users.getName()));
-        }
+        UsersFragment usersFragment =  new UsersFragment();
+        setFragmentMainActivity(usersFragment);
 
-
-        List <UserQuestionnaire> userQuestionnaires = AppQuestionnaire
-                .getInstance()
-                .getDataBaseQuestionnaire()
-                .getDaoUserQuestionnaire()
-                .getUserQuestionnaires();
-        for (UserQuestionnaire userQuestionnaire:
-             userQuestionnaires) {
-            Log.d(Constants.ConstantsGlobal.TAG, String.format(" id : %s, id_name : %s, answer : %s, time : %s",userQuestionnaire.getId(),userQuestionnaire.getId_name(),userQuestionnaire.getAnsver(),userQuestionnaire.getTime()));
-        }        /*
-
-         */
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

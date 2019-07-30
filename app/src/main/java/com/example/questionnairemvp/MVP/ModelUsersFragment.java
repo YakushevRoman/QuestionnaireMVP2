@@ -1,11 +1,14 @@
 package com.example.questionnairemvp.MVP;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ModelUsersFragment {
 private DataBaseQuestionnaire dataBaseQuestionnaire;
@@ -80,6 +83,7 @@ private DataBaseQuestionnaire dataBaseQuestionnaire;
             super.onPostExecute(usersList);
             if (iLoadUsers != null){
                 iLoadUsers.onLoadUsers(usersList);
+                Log.d(Constants.ConstantsGlobal.TAG, "LoadUsers: "+ usersList.size());;
             }
         }
     }
