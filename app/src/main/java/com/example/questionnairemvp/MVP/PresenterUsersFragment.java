@@ -1,8 +1,6 @@
 package com.example.questionnairemvp.MVP;
 
 import android.util.Log;
-import android.util.TimeUtils;
-
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.Fragments.UsersFragment;
 import com.example.questionnairemvp.ROOM.Users;
@@ -29,7 +27,7 @@ public class PresenterUsersFragment {
         loadUsersPresenter();
     }
     //
-    public void loadUsersPresenter (){
+    private void loadUsersPresenter(){
         Log.d(Constants.ConstantsGlobal.TAG, "loadUsersPresenter () ");
             modelUsersFragment.loadUsers(new ModelUsersFragment.ILoadUsers() {
                 @Override

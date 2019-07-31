@@ -1,12 +1,9 @@
 package com.example.questionnairemvp.ROOM;
 import android.app.Application;
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import com.example.questionnairemvp.Constants.Constants;
-import java.util.concurrent.Executors;
+
 
 public class AppQuestionnaire extends Application {
 
@@ -20,7 +17,7 @@ public class AppQuestionnaire extends Application {
         instance = this;
         dataBaseQuestionnaire = Room
                 .databaseBuilder(this, DataBaseQuestionnaire.class,"questionnaire.db")
-                .addCallback(new RoomDatabase.Callback() {
+                /*.addCallback(new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
@@ -52,7 +49,7 @@ public class AppQuestionnaire extends Application {
                         super.onOpen(db);
                         Log.d(Constants.ConstantsGlobal.TAG, "onOpen: DataBase is opened");
                     }
-                })
+                })*/
                 .allowMainThreadQueries()
                 .build();
     }
