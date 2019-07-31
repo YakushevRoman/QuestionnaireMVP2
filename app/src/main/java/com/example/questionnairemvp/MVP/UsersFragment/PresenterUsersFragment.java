@@ -1,8 +1,7 @@
-package com.example.questionnairemvp.MVP;
+package com.example.questionnairemvp.MVP.UsersFragment;
 
 import android.util.Log;
 import com.example.questionnairemvp.Constants.Constants;
-import com.example.questionnairemvp.Fragments.UsersFragment;
 import com.example.questionnairemvp.ROOM.Users;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.questionnairemvp.Fragments;
+package com.example.questionnairemvp.MVP.QuestionnaireFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,18 +10,17 @@ import android.widget.Button;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
-import com.example.questionnairemvp.ROOM.DaoUserQuestionnaire;
+import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.UserQuestionnaire;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
+
 
 public class QuestionnaireFragment extends Fragment {
 
-    private DaoUserQuestionnaire daoUserQuestionnaire;
-    private Bundle bundleQuestionnaireFragment;
+    private QuestionnairePresenter questionnairePresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +34,8 @@ public class QuestionnaireFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_questionnare, container, false);
 
+        questionnairePresenter.attachQuestionnaireFragment(this);
+
         Button unhappyButtonQuestionnaireFragment = view.findViewById(R.id.item_fragment_users_unhappy);
         Button usualButtonQuestionnaireFragment = view.findViewById(R.id.item_fragment_users_usual);
         Button happyButtonQuestionnaireFragment = view.findViewById(R.id.item_fragment_users_happy);
@@ -43,8 +44,7 @@ public class QuestionnaireFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertUserQuestionnaire(Constants.ConstantsQuestionnaireFragment.unhappyQuestionnaireFragment, getDataTime());
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
+                questionnairePresenter.addAnswerQuestionnairePresenter(Constants.ConstantsQuestionnaireFragment.unhappyQuestionnaireFragment);
             }
         });
 
@@ -52,8 +52,7 @@ public class QuestionnaireFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertUserQuestionnaire(Constants.ConstantsQuestionnaireFragment.usualQuestionnaireFragment, getDataTime());
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
+                questionnairePresenter.addAnswerQuestionnairePresenter(Constants.ConstantsQuestionnaireFragment.usualQuestionnaireFragment);
             }
         });
 
@@ -61,24 +60,30 @@ public class QuestionnaireFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertUserQuestionnaire(Constants.ConstantsQuestionnaireFragment.happyQuestionnaireFragment, getDataTime());
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
+                questionnairePresenter.addAnswerQuestionnairePresenter(Constants.ConstantsQuestionnaireFragment.happyQuestionnaireFragment);
             }
         });
         return view;
     }
 
     private void startInitQuestionnaireFragment () {
-        getBundleQuestionnaireFragment();
-        daoUserQuestionnaire = AppQuestionnaire
-                .getInstance()
-                .getDataBaseQuestionnaire()
-                .getDaoUserQuestionnaire();
+        DataBaseQuestionnaire dataBaseQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire();
+        QuestionnaireModel questionnaireModel = new QuestionnaireModel(dataBaseQuestionnaire);
+        questionnairePresenter = new QuestionnairePresenter(questionnaireModel);
     }
 
-    private Bundle getBundleQuestionnaireFragment(){
-        bundleQuestionnaireFragment = getArguments();
-        return bundleQuestionnaireFragment;
+    public UserQuestionnaire getUserQuestionnaire(int answer){
+        UserQuestionnaire userQuestionnaire = new UserQuestionnaire();
+        userQuestionnaire.setId_name(getBundleQuestionnaireFragment());
+        userQuestionnaire.setAnsver(answer);
+        userQuestionnaire.setTime(getDataTime());
+        return userQuestionnaire;
+    }
+
+    private long  getBundleQuestionnaireFragment(){
+        Bundle bundleQuestionnaireFragment = getArguments();
+        assert bundleQuestionnaireFragment != null;
+        return bundleQuestionnaireFragment.getLong(Constants.ConstantsRecyclerUsersAdapter.ID_FOR_IDNAME);
     }
 
     private String  getDataTime (){
@@ -87,16 +92,9 @@ public class QuestionnaireFragment extends Fragment {
         return dateFormat.format(date);
     }
 
-    private void insertUserQuestionnaire(int answer, String time){
-        UserQuestionnaire userQuestionnaire = new UserQuestionnaire();
-        userQuestionnaire.setId_name(bundleQuestionnaireFragment.getLong(Constants.ConstantsRecyclerUsersAdapter.ID_FOR_IDNAME));// hard code
-        userQuestionnaire.setAnsver(answer);
-        userQuestionnaire.setTime(time);
-        daoUserQuestionnaire.insertUserQuestionnaire(userQuestionnaire);
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
+        questionnairePresenter.detachQuestionnaireFragment();
     }
 }

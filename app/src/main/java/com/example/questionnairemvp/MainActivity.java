@@ -14,8 +14,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import com.example.questionnairemvp.Fragments.QuestionnaireFragment;
-import com.example.questionnairemvp.Fragments.UsersFragment;
+import com.example.questionnairemvp.MVP.QuestionnaireFragment.QuestionnaireFragment;
+import com.example.questionnairemvp.MVP.UsersFragment.UsersFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //DataBaseQuestionnaire dataBaseQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

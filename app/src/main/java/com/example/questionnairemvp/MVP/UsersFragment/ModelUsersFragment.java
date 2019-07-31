@@ -1,10 +1,9 @@
-package com.example.questionnairemvp.MVP;
+package com.example.questionnairemvp.MVP.UsersFragment;
 
 import android.os.AsyncTask;
 import android.util.Log;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.ROOM.DaoUsers;
-import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
 import java.util.List;
 

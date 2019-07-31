@@ -1,4 +1,4 @@
-package com.example.questionnairemvp.Fragments;
+package com.example.questionnairemvp.MVP.UsersFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,8 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.questionnairemvp.MVP.ModelUsersFragment;
-import com.example.questionnairemvp.MVP.PresenterUsersFragment;
+
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
 import com.example.questionnairemvp.ROOM.DaoUsers;
