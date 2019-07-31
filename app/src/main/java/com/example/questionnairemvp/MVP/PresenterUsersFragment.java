@@ -41,7 +41,6 @@ public class PresenterUsersFragment {
     }
     //
     public void addUsersPresenter(){
-        // получение users
         Users users = new Users();
         users.setName("New users");
         Log.d(Constants.ConstantsGlobal.TAG, "addUsersPresenter() ");
@@ -52,14 +51,4 @@ public class PresenterUsersFragment {
             }
         });
     }
-    //
-    /*public void deleteUsersPresenter (){
-        modelUsersFragment.deleteAllUsers(new ModelUsersFragment.IDeleteUsers() {
-            @Override
-            public void onDeleteUsers(int countDeleteUsers) {
-
-            }
-        });
-    }*/
-
 }

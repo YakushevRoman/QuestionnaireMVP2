@@ -2,14 +2,11 @@ package com.example.questionnairemvp.MVP;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.ROOM.DaoUsers;
 import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.Users;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ModelUsersFragment {
 private DaoUsers dataBaseQuestionnaire;
@@ -18,13 +15,18 @@ private DaoUsers dataBaseQuestionnaire;
         this.dataBaseQuestionnaire = dataBaseQuestionnaire;
     }
 
-    /**/
+    //
     public void addUser (Users user, IAddUser addUser){
+        //
         AddUser add = new AddUser(addUser);
+        //
         add.execute(user);
     }
+    //
     public void loadUsers (ILoadUsers iLoadUsers){
+        //
         LoadUsers loadUsers = new LoadUsers(iLoadUsers);
+        //
         loadUsers.execute();
     }
     /*public void deleteAllUsers (IDeleteUsers iDeleteUsers){
@@ -38,9 +40,9 @@ private DaoUsers dataBaseQuestionnaire;
     interface ILoadUsers {
         public void onLoadUsers (List <Users> usersList);
     }
-    interface IDeleteUsers{
+    /*interface IDeleteUsers{
         public void onDeleteUsers(int countDeleteUsers);
-    }
+    }*/
     /**/
     class AddUser extends AsyncTask <Users, Void, Void>{
 
@@ -58,8 +60,8 @@ private DaoUsers dataBaseQuestionnaire;
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
             if (iAddUser != null){
                 iAddUser.onAddUser();
             }
