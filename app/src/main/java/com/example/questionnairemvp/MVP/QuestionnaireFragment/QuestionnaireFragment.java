@@ -73,10 +73,12 @@ public class QuestionnaireFragment extends Fragment {
     }
 
     public UserQuestionnaire getUserQuestionnaire(int answer){
+
         UserQuestionnaire userQuestionnaire = new UserQuestionnaire();
         userQuestionnaire.setId_name(getBundleQuestionnaireFragment());
         userQuestionnaire.setAnsver(answer);
         userQuestionnaire.setTime(getDataTime());
+
         return userQuestionnaire;
     }
 
@@ -91,7 +93,6 @@ public class QuestionnaireFragment extends Fragment {
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.getDefault());
         return dateFormat.format(date);
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
