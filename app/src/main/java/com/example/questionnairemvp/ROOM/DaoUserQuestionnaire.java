@@ -15,10 +15,4 @@ public interface DaoUserQuestionnaire extends DaoBase <UserQuestionnaire>{
 
     @Insert
     public void insertUserQuestionnaire (UserQuestionnaire userQuestionnaire);
-
-    /*@Delete
-    public void deleteDaoUserQuestionnaire ();
-
-    @Delete
-    public  int deleteCountDaoUserQuestionnaire ();*/
 }
