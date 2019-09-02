@@ -4,7 +4,7 @@ public class Constants {
 
     public class ConstantsGlobal {
         public static final String TAG = "Questionnaire";
-        public static final String TAG1 = "Questionnaire";
+        public static final String TAG4 = "Questionnaire";
     }
 
     public class ConstantsQuestionnaireFragment {
