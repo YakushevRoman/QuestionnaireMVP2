@@ -14,35 +14,24 @@ private DaoUsers dataBaseQuestionnaire;
         this.dataBaseQuestionnaire = dataBaseQuestionnaire;
     }
 
-    //
     public void addUser (Users user, IAddUser addUser){
-        //
         AddUser add = new AddUser(addUser);
-        //
         add.execute(user);
     }
-    //
+
     public void loadUsers (ILoadUsers iLoadUsers){
-        //
         LoadUsers loadUsers = new LoadUsers(iLoadUsers);
-        //
         loadUsers.execute();
     }
-    /*public void deleteAllUsers (IDeleteUsers iDeleteUsers){
-        DeleteUsers  deleteUsers = new DeleteUsers(iDeleteUsers);
-        deleteUsers.execute();
-    }*/
-    /**/
+
     interface IAddUser {
         public void onAddUser();
     }
+
     interface ILoadUsers {
         public void onLoadUsers (List <Users> usersList);
     }
-    /*interface IDeleteUsers{
-        public void onDeleteUsers(int countDeleteUsers);
-    }*/
-    /**/
+
     class AddUser extends AsyncTask <Users, Void, Void>{
 
         private final IAddUser iAddUser;
@@ -89,26 +78,4 @@ private DaoUsers dataBaseQuestionnaire;
             }
         }
     }
-    /*class DeleteUsers extends AsyncTask <Void, Void, Integer>{
-        private final IDeleteUsers iDeleteUsers;
-        private int countDeleteUsers;
-
-        public DeleteUsers(IDeleteUsers iDeleteUsers) {
-            this.iDeleteUsers = iDeleteUsers;
-        }
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            dataBaseQuestionnaire.getDaoUsers().deleteCountUsers();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
-            if (iDeleteUsers != null){
-                iDeleteUsers.onDeleteUsers(integer);
-            }
-        }
-    }*/
 }
