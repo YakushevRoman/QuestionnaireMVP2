@@ -12,20 +12,20 @@ public class PresenterUsersFragment {
     public PresenterUsersFragment(ModelUsersFragment modelUsersFragment) {
         this.modelUsersFragment = modelUsersFragment;
     }
-
+    //
     public void attachView (UsersFragment usersFragment){
         this.usersFragment = usersFragment;
     }
-
+    //
     public void detachView (){
         usersFragment = null;
     }
-
+    //
     public void viewIsAlready (){
         Log.d(Constants.ConstantsGlobal.TAG, "viewIsAlready (): ");
         loadUsersPresenter();
     }
-
+    //
     private void loadUsersPresenter(){
         Log.d(Constants.ConstantsGlobal.TAG, "loadUsersPresenter () ");
             modelUsersFragment.loadUsers(new ModelUsersFragment.ILoadUsers() {
@@ -36,7 +36,7 @@ public class PresenterUsersFragment {
                 }
             });
     }
-
+    //
     public void addUsersPresenter(){
         Users users = new Users();
         users.setName("New users");

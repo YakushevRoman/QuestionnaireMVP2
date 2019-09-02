@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.questionnairemvp.R;
 import com.example.questionnairemvp.ROOM.AppQuestionnaire;
 import com.example.questionnairemvp.ROOM.DaoUsers;
@@ -23,14 +24,18 @@ public class UsersFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //
             startInitializationUsersFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //
         View view = inflater.inflate(R.layout.fragment_users, container, false);
+        //
         RecyclerView recyclerView = view.findViewById(R.id.fragment_users_recycler_view);
         initializationRecyclerView(recyclerView);
+        //
         FloatingActionButton addFloatingActionButton = view.findViewById(R.id.fragment_users__Add_FloatingActionButton);
         addFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,10 +43,12 @@ public class UsersFragment extends Fragment {
                 presenterUsersFragment.addUsersPresenter();
             }
         });
+        //
         return view;
     }
 
     private void startInitializationUsersFragment(){
+        //
         DaoUsers dataBaseQuestionnaire = AppQuestionnaire.getInstance().getDataBaseQuestionnaire().getDaoUsers();
         ModelUsersFragment modelUsersFragment = new ModelUsersFragment(dataBaseQuestionnaire);
         recyclerUsersAdapter = new RecyclerUsersAdapter(this);
@@ -63,6 +70,7 @@ public class UsersFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //
         presenterUsersFragment.detachView();
     }
 }
