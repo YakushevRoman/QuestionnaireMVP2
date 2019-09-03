@@ -54,7 +54,7 @@ public class AppQuestionnaire extends Application {
                 .build();
     }
 
-    public static AppQuestionnaire getInstance (){
+    public static AppQuestionnaire getInstance(){
         return instance;
     }
 
