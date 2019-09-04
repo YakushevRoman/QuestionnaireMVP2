@@ -4,8 +4,14 @@ import android.arch.persistence.room.Room;
 import android.util.Log;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
+import com.example.questionnairemvp.ROOM.Users;
 import com.example.questionnairemvp.Retrofit2.MyRetrofitServise;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.Retrofit.Builder;
 
@@ -65,7 +71,18 @@ public class AppQuestionnaire extends Application {
                         .baseUrl("")
                         .build();
                 myRetrofitServise = retrofit.create(MyRetrofitServise.class);
+        Call<List<Users>> listCall = myRetrofitServise.listRepos(new Users("re"));
+        listCall.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
 
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+
+            }
+        });
     }
 
     public static AppQuestionnaire getInstance(){
