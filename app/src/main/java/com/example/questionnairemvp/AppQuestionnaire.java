@@ -1,14 +1,20 @@
-package com.example.questionnairemvp.ROOM;
+package com.example.questionnairemvp;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.util.Log;
 import com.example.questionnairemvp.Constants.Constants;
+import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
+import com.example.questionnairemvp.Retrofit2.MyRetrofitServise;
+
+import retrofit2.Retrofit;
+import retrofit2.Retrofit.Builder;
 
 
 public class AppQuestionnaire extends Application {
 
     private static AppQuestionnaire instance;
     private DataBaseQuestionnaire dataBaseQuestionnaire;
+    private MyRetrofitServise myRetrofitServise;
 
     @Override
     public void onCreate() {
@@ -52,6 +58,14 @@ public class AppQuestionnaire extends Application {
                 })*/
                 .allowMainThreadQueries()
                 .build();
+
+                String str;
+                Retrofit retrofit = new Retrofit
+                        .Builder()
+                        .baseUrl("")
+                        .build();
+                myRetrofitServise = retrofit.create(MyRetrofitServise.class);
+
     }
 
     public static AppQuestionnaire getInstance(){
@@ -60,5 +74,8 @@ public class AppQuestionnaire extends Application {
 
     public DataBaseQuestionnaire getDataBaseQuestionnaire(){
         return dataBaseQuestionnaire;
+    }
+    public MyRetrofitServise getMyRetrofitServise () {
+        return myRetrofitServise;
     }
 }

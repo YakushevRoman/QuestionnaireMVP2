@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragmentContainer = fragmentManager.findFragmentById(R.id.fragment_container);
         if (fragmentContainer == null){
-        fragmentTransaction
-                .add(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+            fragmentTransaction
+                    .add(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         } else {
             fragmentTransaction
                     .replace(R.id.fragment_container, fragment)

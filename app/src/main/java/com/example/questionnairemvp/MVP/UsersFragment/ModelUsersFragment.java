@@ -24,12 +24,21 @@ private DaoUsers dataBaseQuestionnaire;
         loadUsers.execute();
     }
 
+    public void deleteUsers (Users users, IDeleteUser iDeleteUser ){
+        DeleteUsers deleteUsers = new DeleteUsers(iDeleteUser);
+        deleteUsers.execute(users);
+    }
+
     interface IAddUser {
         public void onAddUser();
     }
 
     interface ILoadUsers {
         public void onLoadUsers (List <Users> usersList);
+    }
+
+    interface  IDeleteUser {
+        public void onDeleteUsers (int count);
     }
 
     class AddUser extends AsyncTask <Users, Void, Void>{
@@ -76,6 +85,26 @@ private DaoUsers dataBaseQuestionnaire;
                 iLoadUsers.onLoadUsers(usersList);
                 Log.d(Constants.ConstantsGlobal.TAG, "LoadUsers: "+ usersList.size());;
             }
+        }
+    }
+    class DeleteUsers extends AsyncTask <Users, Void, Integer>{
+        private final IDeleteUser iDeleteUser;
+
+        public DeleteUsers(IDeleteUser iDeleteUser) {
+            this.iDeleteUser = iDeleteUser;
+        }
+
+        @Override
+        protected Integer doInBackground(Users... users) {
+            Users user = users[0];
+            Integer count = dataBaseQuestionnaire.deleteUserQuestionnaire(user);
+            return count;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            iDeleteUser.onDeleteUsers(integer);
         }
     }
 }

@@ -48,4 +48,15 @@ public class PresenterUsersFragment {
             }
         });
     }
+
+    public void deleteUserPresenter (){
+        Users users = new Users();
+        users.setName("New users");
+        modelUsersFragment.deleteUsers(users, new ModelUsersFragment.IDeleteUser() {
+            @Override
+            public void onDeleteUsers(int count) {
+                Log.d(Constants.ConstantsGlobal.TAG, "addUsersPresenter() " + count);
+            }
+        });
+    }
 }

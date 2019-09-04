@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.R;
-import com.example.questionnairemvp.ROOM.AppQuestionnaire;
+import com.example.questionnairemvp.AppQuestionnaire;
 import com.example.questionnairemvp.ROOM.DataBaseQuestionnaire;
 import com.example.questionnairemvp.ROOM.UserQuestionnaire;
 import java.text.DateFormat;

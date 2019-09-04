@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.questionnairemvp.R;
-import com.example.questionnairemvp.ROOM.AppQuestionnaire;
+import com.example.questionnairemvp.AppQuestionnaire;
 import com.example.questionnairemvp.ROOM.DaoUsers;
 import com.example.questionnairemvp.ROOM.Users;
 import com.example.questionnairemvp.Recycler.RecyclerUsersAdapter;
