@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import com.example.questionnairemvp.Constants.Constants;
-
+@Fts4
 @Entity
 public class Users {
 

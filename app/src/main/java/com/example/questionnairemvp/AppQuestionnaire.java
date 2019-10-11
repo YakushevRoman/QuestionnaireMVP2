@@ -71,7 +71,7 @@ public class AppQuestionnaire extends Application {
                         .baseUrl("")
                         .build();
                 myRetrofitServise = retrofit.create(MyRetrofitServise.class);
-        Call<List<Users>> listCall = myRetrofitServise.listRepos(new Users("re"));
+        /*Call<List<Users>> listCall = myRetrofitServise.listRepos();
         listCall.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
@@ -82,7 +82,7 @@ public class AppQuestionnaire extends Application {
             public void onFailure(Call<List<Users>> call, Throwable t) {
 
             }
-        });
+        });*/
     }
 
     public static AppQuestionnaire getInstance(){
