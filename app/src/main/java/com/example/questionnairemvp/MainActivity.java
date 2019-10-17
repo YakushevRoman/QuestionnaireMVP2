@@ -19,7 +19,9 @@ import android.view.Menu;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.MVP.QuestionnaireFragment.QuestionnaireFragment;
 import com.example.questionnairemvp.MVP.UsersFragment.UsersFragment;
+import com.squareup.moshi.Moshi;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -75,6 +77,18 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }).start();*/
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    getStringToTheService();
+                    runRequestWithFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -272,5 +286,28 @@ public class MainActivity extends AppCompatActivity
             assert response.body() != null;
             Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s ", response.body().string()));
         }
+    }
+
+    // post file
+    public void runRequestWithFile() throws IOException {
+        File file =  new File("my_file.txt");
+        //request
+        Request request = new Request.Builder()
+                .url("https://api.github.com/markdown/raw")
+                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
+                .build();
+        // response
+        try (Response response = okHttpClient.newCall(request).execute()) {
+          if (!response.isSuccessful()){
+              throw  new IOException();
+          }
+          assert response.body() != null;
+          Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s ", response.body().string()));
+        }
+    }
+
+    // use moshi for json parsing
+    public void getParseResult () {
+        Moshi moshi = new Moshi.Builder().build();
     }
 }
