@@ -1,118 +1,81 @@
 package com.example.questionnairemvp;
-import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.JsonToken;
-import android.util.LruCache;
+import android.util.Log;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 
+import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.MVP.QuestionnaireFragment.QuestionnaireFragment;
 import com.example.questionnairemvp.MVP.UsersFragment.UsersFragment;
-import com.example.questionnairemvp.ROOM.Users;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.OkHttpClient.Builder;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private  OkHttpClient okHttpClient = new OkHttpClient();
+    public static final MediaType MEDIA_TYPE_MARKDOWN
+            = MediaType.parse("text/x-markdown; charset=utf-8");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        Internal storage
-        File file = getApplicationContext().getCacheDir();
-        File file1 = getApplicationContext().getFilesDir();
-        File inputStream = getApplicationContext().getFileStreamPath("a.txt");
+        setContentView(R.layout.activity_main);
 
-        Environment.getExternalStorageDirectory();
-        getApplicationContext().getExternalCacheDir();
-        Object
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        final int cacheSized = maxMemory / 8;
-
-        LruCache <String , String>  stringStringLruCache =
-                new LruCache<String , String>(cacheSized){
-                    @Override
-                    protected String create(String key) {
-                        return super.create(key);
-                    }
-                };
-
-
-        Context context;
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("setting", MODE_PRIVATE );
-        Editor editor = sharedPreferences.edit();
-        editor.putString("1","1");
-        editor.putInt("2", 2);
-        editor.apply();
-
-        SharedPreferences sharedPreferences1 = getApplication().getSharedPreferences("setting", MODE_PRIVATE);
-        int value = sharedPreferences.getInt("2",0 );
-        String s = sharedPreferences.getString("1", null);
- */
-
-        Socket socket = new Socket();
-        HttpURLConnection httpURLConnection = null;
-        try {
-            URL url = new URL("http://mail.ru");
-            httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            try (InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream())) {
-            }
-            finally {
-                if (httpURLConnection != null){
-                    httpURLConnection.disconnect();
+/*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runOkHttp();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+        }).start();
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runHttpAsynchro();
+            }
+        }).start();
 
+        new  Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    getAllHeaders ();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();*/
 
-
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -213,42 +176,101 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void createJSON (String json) throws JSONException {
-        JSONTokener jsonTokener = new JSONTokener(json);
-        JSONObject jsonObject = (JSONObject) jsonTokener.nextValue();
-        Users users =  new Users();
-        users.setId(jsonObject.getInt(""));
-        users.setName(jsonObject.getString(""));
-
-        JSONArray jsonArray = jsonObject.getJSONArray("");
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-        }
-
-        OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+    /*
+    * */
+    public void runOkHttp () throws  IOException{
+        Request request = new Request.Builder()
+                .url("https://publicobject.com/helloworld.txt")
                 .build();
-        Request request = new Request.Builder().build();
 
-        MainActivity.this.getLoaderManager();
-        Message message = new Message();
-        /*try (Response response = okHttpClient.newCall(request).execute()) {
-
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()){
+                throw new IOException("e" + response);
+            }
+            Headers headers = response.headers();
+            for (int i = 0; i < headers.size(); i++) {
+                Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", headers.name(i)));
+            }
+            assert response.body() != null;
+            Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s", response.body().string()));
         }
+    }
 
+    public void runHttpAsynchro (){
+        Request request = new Request.Builder()
+                .url("https://publicobject.com/helloworld.txt")
+                .build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) { 
+                  if (!response.isSuccessful()) {
+                      throw  new IOException("exception"+response);
+                  }
 
+                  Headers headers = response.headers();
+                    for (int i = 0; i < headers.size(); i++) {
+                        Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", headers.name(i)));
+                    }
+                    assert responseBody != null;
+                    Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s",responseBody.string()));
+                }
             }
-        });*/
+        });
+    }
+
+    public void getAllHeaders () throws IOException{
+
+        Request request = new Request.Builder()
+                .url("https://api.github.com/repos/square/okhttp/issues")
+                .header("User-Agent","OkHttp Headers.java")
+                .addHeader("Accept_roman","application/json; q=0.5")
+                .addHeader("Accept","application/vnd.github.v3+json")
+                .build();
+
+        try (Response response = okHttpClient.newCall(request).execute()) {
+          if (!response.isSuccessful()){
+              throw  new IOException(String.format("Exeption response : %s " , response));
+          }
+
+          Headers headers = response.headers();
+            for (int i = 0; i < headers.size(); i++) {
+                Log.d(Constants.ConstantsGlobal.TAG, String.format("Headers : %s", headers.value(i)));
+            }
+
+          Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.header("Server")));
+            Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.header("Date")));
+            Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.headers("Vary")));
+
+        }
+    }
+
+    public void getStringToTheService () throws IOException{
+        String postBody = ""
+                + "Releases\n"
+                + "--------\n"
+                + "\n"
+                + " * _1.0_ May 6, 2013\n"
+                + " * _1.1_ June 15, 2013\n"
+                + " * _1.2_ August 11, 2013\n";
+        //create request
+        RequestBody body;
+        Request request = new Request.Builder()
+                .url("https://api.github.com/markdown/raw")
+                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
+                .build();
+
+        try (Response response = okHttpClient.newCall(request).execute()) {
+          if (!response.isSuccessful()){
+              throw  new IOException("Response problem");
+          }
+            assert response.body() != null;
+            Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s ", response.body().string()));
+        }
     }
 }

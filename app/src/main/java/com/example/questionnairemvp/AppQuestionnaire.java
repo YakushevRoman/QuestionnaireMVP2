@@ -65,24 +65,6 @@ public class AppQuestionnaire extends Application {
                 .allowMainThreadQueries()
                 .build();
 
-                String str;
-                Retrofit retrofit = new Retrofit
-                        .Builder()
-                        .baseUrl("")
-                        .build();
-                myRetrofitServise = retrofit.create(MyRetrofitServise.class);
-        /*Call<List<Users>> listCall = myRetrofitServise.listRepos();
-        listCall.enqueue(new Callback<List<Users>>() {
-            @Override
-            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Users>> call, Throwable t) {
-
-            }
-        });*/
     }
 
     public static AppQuestionnaire getInstance(){
