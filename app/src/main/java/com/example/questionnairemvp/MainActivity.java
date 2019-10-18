@@ -21,6 +21,7 @@ import com.example.questionnairemvp.MVP.QuestionnaireFragment.QuestionnaireFragm
 import com.example.questionnairemvp.MVP.UsersFragment.UsersFragment;
 import com.example.questionnairemvp.TestDP.BattleComponent;
 import com.example.questionnairemvp.TestDP.Bolton;
+import com.example.questionnairemvp.TestDP.DaggerBattleComponent;
 import com.example.questionnairemvp.TestDP.Stark;
 import com.example.questionnairemvp.TestDP.War;
 import com.squareup.moshi.JsonAdapter;
@@ -115,7 +116,8 @@ public class MainActivity extends AppCompatActivity
         war.prepare();
         war.report();*/
         //BattleComponent battleComponent =
-        //BattleComponent battleComponent= DaggerBattleComponent.create();
+        BattleComponent battleComponent= DaggerBattleComponent.create();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

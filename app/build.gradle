@@ -26,13 +26,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //room
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "android.arch.persistence.room:runtime:1.1.1"
+    //retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    //moshi
     implementation "com.squareup.moshi:moshi:1.8.0"
+    // picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-
-    implementation 'com.google.dagger:dagger-android:2.24'
-    implementation 'com.google.dagger:dagger-android-support:2.24'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
+    // dagger 2
+    api 'com.google.dagger:dagger:2.24'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.24'
 }
