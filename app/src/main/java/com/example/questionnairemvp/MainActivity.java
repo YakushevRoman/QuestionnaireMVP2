@@ -117,6 +117,13 @@ public class MainActivity extends AppCompatActivity
         war.report();*/
         //BattleComponent battleComponent =
         BattleComponent battleComponent= DaggerBattleComponent.create();
+        Stark stark = battleComponent.getStark();
+        War war = battleComponent.getWar();
+
+
+
+        /*
+        * */
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
