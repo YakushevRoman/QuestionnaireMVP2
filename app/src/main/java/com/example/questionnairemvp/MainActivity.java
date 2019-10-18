@@ -19,12 +19,21 @@ import android.view.Menu;
 import com.example.questionnairemvp.Constants.Constants;
 import com.example.questionnairemvp.MVP.QuestionnaireFragment.QuestionnaireFragment;
 import com.example.questionnairemvp.MVP.UsersFragment.UsersFragment;
+import com.example.questionnairemvp.TestDP.BattleComponent;
+import com.example.questionnairemvp.TestDP.Bolton;
+import com.example.questionnairemvp.TestDP.Stark;
+import com.example.questionnairemvp.TestDP.War;
+import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -40,9 +49,17 @@ import okhttp3.ResponseBody;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private  OkHttpClient okHttpClient = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .callTimeout(10, TimeUnit.SECONDS)
+            .build();
+    private final Moshi moshi = new Moshi.Builder().build();
+    private final JsonAdapter<Gist> gistJsonAdapter = moshi.adapter(Gist.class);
     public static final MediaType MEDIA_TYPE_MARKDOWN
             = MediaType.parse("text/x-markdown; charset=utf-8");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +99,23 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    getStringToTheService();
-                    runRequestWithFile();
+                    //getStringToTheService();
+                    //runRequestWithFile();
+                    getParseResult();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
 
+        /*test di
+        Stark stark = new Stark();
+        Bolton bolton = new Bolton();
+        War war = new War(stark, bolton);
+        war.prepare();
+        war.report();*/
+        //BattleComponent battleComponent =
+        //BattleComponent battleComponent= DaggerBattleComponent.create();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -153,10 +179,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            QuestionnaireFragment questionnaireFragment =  new QuestionnaireFragment();
+            QuestionnaireFragment questionnaireFragment = new QuestionnaireFragment();
             setFragmentMainActivity(questionnaireFragment);
         } else if (id == R.id.nav_gallery) {
-            UsersFragment usersFragment =  new UsersFragment();
+            UsersFragment usersFragment = new UsersFragment();
             setFragmentMainActivity(usersFragment);
         } else if (id == R.id.nav_slideshow) {
             startActivity(new Intent(MainActivity.this, MainActivity.class));
@@ -173,11 +199,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setFragmentMainActivity (Fragment fragment){
+    private void setFragmentMainActivity(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragmentContainer = fragmentManager.findFragmentById(R.id.fragment_container);
-        if (fragmentContainer == null){
+        if (fragmentContainer == null) {
             fragmentTransaction
                     .add(R.id.fragment_container, fragment)
                     .addToBackStack(null)
@@ -191,14 +217,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     /*
-    * */
-    public void runOkHttp () throws  IOException{
+     * */
+    public void runOkHttp() throws IOException {
         Request request = new Request.Builder()
                 .url("https://publicobject.com/helloworld.txt")
                 .build();
 
-        try (Response response = okHttpClient.newCall(request).execute()) {
-            if (!response.isSuccessful()){
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
                 throw new IOException("e" + response);
             }
             Headers headers = response.headers();
@@ -210,11 +236,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void runHttpAsynchro (){
+    public void runHttpAsynchro() {
         Request request = new Request.Builder()
                 .url("https://publicobject.com/helloworld.txt")
                 .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -222,49 +248,49 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) { 
-                  if (!response.isSuccessful()) {
-                      throw  new IOException("exception"+response);
-                  }
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("exception" + response);
+                    }
 
-                  Headers headers = response.headers();
+                    Headers headers = response.headers();
                     for (int i = 0; i < headers.size(); i++) {
                         Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", headers.name(i)));
                     }
                     assert responseBody != null;
-                    Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s",responseBody.string()));
+                    Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s", responseBody.string()));
                 }
             }
         });
     }
 
-    public void getAllHeaders () throws IOException{
+    public void getAllHeaders() throws IOException {
 
         Request request = new Request.Builder()
                 .url("https://api.github.com/repos/square/okhttp/issues")
-                .header("User-Agent","OkHttp Headers.java")
-                .addHeader("Accept_roman","application/json; q=0.5")
-                .addHeader("Accept","application/vnd.github.v3+json")
+                .header("User-Agent", "OkHttp Headers.java")
+                .addHeader("Accept_roman", "application/json; q=0.5")
+                .addHeader("Accept", "application/vnd.github.v3+json")
                 .build();
 
-        try (Response response = okHttpClient.newCall(request).execute()) {
-          if (!response.isSuccessful()){
-              throw  new IOException(String.format("Exeption response : %s " , response));
-          }
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException(String.format("Exeption response : %s ", response));
+            }
 
-          Headers headers = response.headers();
+            Headers headers = response.headers();
             for (int i = 0; i < headers.size(); i++) {
                 Log.d(Constants.ConstantsGlobal.TAG, String.format("Headers : %s", headers.value(i)));
             }
 
-          Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.header("Server")));
+            Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.header("Server")));
             Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.header("Date")));
             Log.d(Constants.ConstantsGlobal.TAG, String.format("Header : %s", response.headers("Vary")));
 
         }
     }
 
-    public void getStringToTheService () throws IOException{
+    public void getStringToTheService() throws IOException {
         String postBody = ""
                 + "Releases\n"
                 + "--------\n"
@@ -279,10 +305,10 @@ public class MainActivity extends AppCompatActivity
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
                 .build();
 
-        try (Response response = okHttpClient.newCall(request).execute()) {
-          if (!response.isSuccessful()){
-              throw  new IOException("Response problem");
-          }
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Response problem");
+            }
             assert response.body() != null;
             Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s ", response.body().string()));
         }
@@ -290,24 +316,51 @@ public class MainActivity extends AppCompatActivity
 
     // post file
     public void runRequestWithFile() throws IOException {
-        File file =  new File("my_file.txt");
+        File file = new File("my_file.txt");
         //request
         Request request = new Request.Builder()
                 .url("https://api.github.com/markdown/raw")
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
                 .build();
         // response
-        try (Response response = okHttpClient.newCall(request).execute()) {
-          if (!response.isSuccessful()){
-              throw  new IOException();
-          }
-          assert response.body() != null;
-          Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s ", response.body().string()));
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException();
+            }
+            assert response.body() != null;
+            Log.d(Constants.ConstantsGlobal.TAG, String.format("Body : %s ", response.body().string()));
         }
     }
 
     // use moshi for json parsing
-    public void getParseResult () {
-        Moshi moshi = new Moshi.Builder().build();
+    public void getParseResult() throws IOException {
+        Request request = new Request.Builder()
+                .url("https://api.github.com/gists/c2a7c39532239ff261be")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            assert response.body() != null;
+            Gist gist = gistJsonAdapter.fromJson(response.body().source());
+
+            assert gist != null;
+            for (Map.Entry<String, GistFile> entry : gist.files.entrySet()) {
+                Log.d(Constants.ConstantsGlobal.TAG, String.format("Key : %s , Value : %s, , File name : %s", entry.getKey(), entry.getValue().truncated, entry.getValue().filename));
+            }
+            //Picasso.get().load().into();
+        }
     }
+
+    static class Gist {
+        Map<String, GistFile> files;
+    }
+
+    static class GistFile {
+        String filename;
+        boolean truncated;
+    }
+
+
+    // texting rx
+
 }
