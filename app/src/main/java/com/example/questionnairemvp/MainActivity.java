@@ -21,7 +21,10 @@ import com.example.questionnairemvp.MVP.QuestionnaireFragment.QuestionnaireFragm
 import com.example.questionnairemvp.MVP.UsersFragment.UsersFragment;
 import com.example.questionnairemvp.TestDP.BattleComponent;
 import com.example.questionnairemvp.TestDP.Bolton;
+import com.example.questionnairemvp.TestDP.BravosModule;
+import com.example.questionnairemvp.TestDP.Cash;
 import com.example.questionnairemvp.TestDP.DaggerBattleComponent;
+import com.example.questionnairemvp.TestDP.Soldiers;
 import com.example.questionnairemvp.TestDP.Stark;
 import com.example.questionnairemvp.TestDP.War;
 import com.squareup.moshi.JsonAdapter;
@@ -116,9 +119,16 @@ public class MainActivity extends AppCompatActivity
         war.prepare();
         war.report();*/
         //BattleComponent battleComponent =
-        BattleComponent battleComponent= DaggerBattleComponent.create();
+
+        BattleComponent battleComponent= DaggerBattleComponent
+                .builder()
+                .bravosModule(new BravosModule(new Cash(), new Soldiers()))
+                .build();
         Stark stark = battleComponent.getStark();
+        Bolton bolton = battleComponent.getBolton();
         War war = battleComponent.getWar();
+        battleComponent.getCash()
+
 
 
 
